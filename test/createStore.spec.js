@@ -10,7 +10,7 @@ import {
 } from './helpers/actionCreators'
 import * as reducers from './helpers/reducers'
 import * as Rx from 'rxjs'
-import $$observable from 'symbol-observable'
+import $$observable from 'libraries/redux/src/symbol-observable'
 
 describe('createStore', () => {
   it('exposes the public API', () => {

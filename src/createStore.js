@@ -1,4 +1,4 @@
-import $$observable from 'symbol-observable'
+import $$observable from './symbol-observable/index.js'
 
 import ActionTypes from './utils/actionTypes'
 import isPlainObject from './utils/isPlainObject'
