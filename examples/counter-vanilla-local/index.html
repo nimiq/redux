@@ -14,7 +14,8 @@
       </p>
     </div>
     <script type="module">
-      import Redux from '../../src/index.js';
+      import * as Redux from '/libraries/redux/src/index.js';
+      import { createLogger } from '/libraries/redux-logger/src/index.js';
 
       function counter(state, action) {
         if (typeof state === 'undefined') {
@@ -31,7 +32,9 @@
         }
       }
 
-      var store = Redux.createStore(counter)
+      var logger =  createLogger();
+
+      var store = Redux.createStore(counter, Redux.applyMiddleware(logger))
       var valueEl = document.getElementById('value')
 
       function render() {

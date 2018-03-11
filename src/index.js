@@ -6,7 +6,7 @@ import compose from './compose'
 import warning from './utils/warning'
 import __DO_NOT_USE__ActionTypes from './utils/actionTypes'
 
-export default {
+export {
   createStore,
   combineReducers,
   bindActionCreators,
