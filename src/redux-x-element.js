@@ -6,23 +6,28 @@ import { bindActionCreators } from '/libraries/redux/src/index.js';
  *          mapped to which property of the XElement.
  *  @param {Object} actions - Contains all redux actions to be used in the XElement.
  */
-export default function connect(store, mapStateToProps, actions) {
-    return (Element) => {
-        return class extends Element {
-            onCreate() {
-                if (super.onCreate) {
-                    super.onCreate();
-                }
-
-                this.actions = bindActionCreators(actions, store.dispatch);
-                store.subscribe(() => {
-                    const state = store.getState();
-
-                    const properties = mapStateToProps(state);
-
-                    this.setProperties(properties);
-                })
-            }
+export default function reduxify(store, mapStateToProps, actions) {
+  return (Element) => {
+    return class extends Element {
+      onCreate() {
+        if (super.onCreate) {
+          super.onCreate();
         }
+
+        this.actions = bindActionCreators(actions, store.dispatch);
+
+        let oldProperties;
+        store.subscribe(() => {
+          const state = store.getState();
+
+          const properties = mapStateToProps(state);
+
+          if (oldProperties !== properties) {
+            this.setProperties(properties);
+            oldProperties = properties;
+          }
+        })
+      }
     }
+  }
 }
