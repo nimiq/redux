@@ -16,11 +16,13 @@ export default function reduxify(store, filterState, actions = {}) {
 
         this.actions = bindActionCreators(actions, store.dispatch);
 
-        store.subscribe(() => {
-          const properties = filterState(store.getState());
+        if (filterState) {
+          store.subscribe(() => {
+            const properties = filterState(store.getState());
 
-          this.setProperties(properties);
-        });
+            this.setProperties(properties);
+          });
+        }
       }
     };
   };
