@@ -17,12 +17,17 @@ export default function reduxify(store, filterState, actions = {}) {
         this.actions = bindActionCreators(actions, store.dispatch);
 
         if (filterState) {
-          store.subscribe(() => {
+          this._unsubscribe = store.subscribe(() => {
             const properties = filterState(store.getState());
 
             this.setProperties(properties);
           });
         }
+      }
+
+      destroy() {
+        super.destroy();
+        this._unsubscribe();
       }
     };
   };
